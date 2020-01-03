@@ -1,0 +1,23 @@
+version: '3'
+services: 
+  reactapp:
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev 
+    ports:
+    - "3001:3000"
+#	mapping current folder . to docker /app folder with exception of /app/node_modules
+    volumes:
+    - /app/node_modules
+    - .:/app
+## second service for tests
+  tests:
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev 
+#	mapping current folder . to docker /app folder with exception of /app/node_modules
+    volumes:
+    - /app/node_modules
+    - .:/app
+# override starting command (npm run start) with npm run test
+    command: ["npm","run","test"]
