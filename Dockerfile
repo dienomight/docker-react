@@ -18,7 +18,11 @@ RUN npm run build
 
 FROM nginx
 
-# second step need to copy it from builder
+# this is for mapping port 80 by elasticbeanstalk
+
+EXPOSE 80
+
+# this step need to copy it from builder
 
 COPY --from=builder /app/build /usr/share/nginx/html
 
